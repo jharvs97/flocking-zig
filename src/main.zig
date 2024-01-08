@@ -3,9 +3,8 @@ const rl = @import("raylib");
 const rm = @import("raylib-math");
 
 const Boid = struct {
-    position: rl.Vector2 = .{ .x = 0, .y = 0 },
-    velocity: rl.Vector2 = .{ .x = 0, .y = 0 },
-    color: rl.Color,
+    position: rl.Vector2,
+    velocity: rl.Vector2,
 };
 
 const System = struct {
@@ -144,7 +143,6 @@ pub fn main() anyerror!void {
             addBoid(&system, fba.allocator(), .{
                 .position = rl.getMousePosition(),
                 .velocity = rm.vector2Scale(randomUnitVector(rand), (rand.float(f32) + 0.1) * 2),
-                .color = rl.Color{ .a = 128, .r = 0, .g = 0, .b = 0 },
             });
         }
 
@@ -156,7 +154,7 @@ pub fn main() anyerror!void {
                 rl.clearBackground(rl.Color.ray_white);
 
                 for (system.boids.items) |b| {
-                    rl.drawCircleV(b.position, 2, b.color);
+                    rl.drawCircleV(b.position, 2, rl.Color{ .a = 128, .r = 0, .g = 0, .b = 0 });
                 }
             }
         }
